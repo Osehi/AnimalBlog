@@ -34,6 +34,7 @@ object DataModule {
     }
 
     @Provides
+    @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("")
@@ -42,6 +43,7 @@ object DataModule {
     }
 
     @Provides
+    @Singleton
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
