@@ -1,6 +1,6 @@
 package com.polishone.animalblog.common.data.network.model
 
-data class Owner(
+data class OwnerDTO(
     val firstName: String,
     val id: String,
     val lastName: String,
