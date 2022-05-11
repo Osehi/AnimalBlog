@@ -47,4 +47,8 @@ object DataModule {
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
     }
+
+    /**
+     * provide the repository
+     */
 }

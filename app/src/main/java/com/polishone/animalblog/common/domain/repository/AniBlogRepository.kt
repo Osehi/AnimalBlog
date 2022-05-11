@@ -5,6 +5,6 @@ import retrofit2.Response
 
 interface AniBlogRepository {
 
-    suspend fun getAniBlogs(): Response<List<AniBlog>>
+    suspend fun getAniBlogs(): List<AniBlog>
 
 }
