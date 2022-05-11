@@ -1,6 +1,7 @@
 package com.polishone.animalblog.common.data.network.di
 
 import com.polishone.animalblog.common.data.network.api.ApiService
+import com.polishone.animalblog.common.data.repository.AniBlogRepositoryImpl
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -46,5 +47,14 @@ object DataModule {
     @Singleton
     fun provideApi(retrofit: Retrofit): ApiService {
         return retrofit.create(ApiService::class.java)
+    }
+
+    /**
+     * provide the repository
+     */
+    @Provides
+    @Singleton
+    fun provideGetAniBlogsRepository(apiService: ApiService): AniBlogRepositoryImpl {
+        return AniBlogRepositoryImpl(apiService)
     }
 }
