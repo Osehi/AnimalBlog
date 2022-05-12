@@ -31,4 +31,5 @@
         app:layout_constraintHorizontal_bias="0.101"
         app:layout_constraintStart_toEndOf="@+id/main_activity_image"
         app:layout_constraintTop_toTopOf="@+id/main_activity_image" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
