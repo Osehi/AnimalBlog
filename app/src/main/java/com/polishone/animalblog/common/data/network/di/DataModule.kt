@@ -1,7 +1,9 @@
 package com.polishone.animalblog.common.data.network.di
 
+import com.polishone.animalblog.common.constant.NetworkConstant
 import com.polishone.animalblog.common.data.network.api.ApiService
 import com.polishone.animalblog.common.data.repository.AniBlogRepositoryImpl
+import com.polishone.animalblog.common.domain.repository.AniBlogRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -27,9 +29,9 @@ object DataModule {
     @Singleton
     fun provideClient(logger: HttpLoggingInterceptor): OkHttpClient {
         return OkHttpClient.Builder()
-            .connectTimeout(30L, TimeUnit.SECONDS)
-            .readTimeout(30L, TimeUnit.SECONDS)
-            .writeTimeout(30L, TimeUnit.SECONDS)
+            .connectTimeout(60L, TimeUnit.SECONDS)
+            .readTimeout(60L, TimeUnit.SECONDS)
+            .writeTimeout(60L, TimeUnit.SECONDS)
             .addInterceptor(logger)
             .build()
     }
@@ -38,8 +40,9 @@ object DataModule {
     @Singleton
     fun provideRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl("")
+            .baseUrl(NetworkConstant.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
+            .client(client)
             .build()
     }
 
@@ -54,7 +57,7 @@ object DataModule {
      */
     @Provides
     @Singleton
-    fun provideGetAniBlogsRepository(apiService: ApiService): AniBlogRepositoryImpl {
+    fun provideGetAniBlogsRepository(apiService: ApiService): AniBlogRepository {
         return AniBlogRepositoryImpl(apiService)
     }
 }

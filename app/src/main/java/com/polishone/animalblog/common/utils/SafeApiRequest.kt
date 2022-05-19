@@ -21,7 +21,7 @@ abstract class SafeApiRequest {
                 try {
                     message.append(JSONObject(it).getString("error"))
                 } catch (e:JSONException){
-                    Log.d(TAG, "The error message: ${e}")
+                    Log.d(TAG, "The error message: ${e.message}")
                 }
             }
             Log.d(TAG, "SafeApiRequest: ${message}")

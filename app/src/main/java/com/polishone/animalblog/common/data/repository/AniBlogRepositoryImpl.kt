@@ -1,5 +1,6 @@
 package com.polishone.animalblog.common.data.repository
 
+import com.polishone.animalblog.common.constant.NetworkConstant
 import com.polishone.animalblog.common.data.mappers.toDomain
 import com.polishone.animalblog.common.data.network.api.ApiService
 import com.polishone.animalblog.common.domain.model.AniBlog
@@ -13,7 +14,7 @@ class AniBlogRepositoryImpl @Inject constructor(
     ): AniBlogRepository , SafeApiRequest(){
 
     override suspend fun getAniBlogs(): List<AniBlog> {
-        val response = safeApiRequest { apiService.getBlogs() }
+        val response = safeApiRequest { apiService.getBlogs(NetworkConstant.APP_ID) }
         return response.data.toDomain()?: emptyList()
     }
 }
