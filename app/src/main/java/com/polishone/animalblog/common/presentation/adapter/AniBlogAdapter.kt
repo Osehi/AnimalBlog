@@ -8,7 +8,7 @@ import com.polishone.animalblog.common.domain.model.AniBlog
 import com.polishone.animalblog.common.utils.bindImage
 import com.polishone.animalblog.databinding.AniblogListItemBinding
 
-class AniBlogAdapter(private val aniBlog:List<AniBlog>, val onClickListener: OnClickListener) : RecyclerView.Adapter<AniBlogAdapter.AniBlogViewHolder>(){
+class AniBlogAdapter(private val aniBlog:List<AniBlog>?, val onClickListener: OnClickListener) : RecyclerView.Adapter<AniBlogAdapter.AniBlogViewHolder>(){
 
     class AniBlogViewHolder(private val binding: AniblogListItemBinding): RecyclerView.ViewHolder(binding.root) {
 
@@ -37,15 +37,21 @@ class AniBlogAdapter(private val aniBlog:List<AniBlog>, val onClickListener: OnC
     }
 
     override fun onBindViewHolder(holder: AniBlogViewHolder, position: Int) {
-        val currentItem = aniBlog[position]
+        val currentItem = aniBlog?.get(position)
         holder.itemView.setOnClickListener {
-            onClickListener.clickListener(currentItem)
+            if (currentItem != null) {
+                onClickListener.clickListener(currentItem)
+            }
         }
-        holder.bind(currentItem)
+        if (currentItem != null) {
+            holder.bind(currentItem)
+        }
     }
 
     override fun getItemCount(): Int {
-        return aniBlog.size
+        return aniBlog?.let {
+            it.size
+        } ?: 0
     }
 
     // clicklistener to handle click events

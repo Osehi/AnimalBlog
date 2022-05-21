@@ -23,9 +23,7 @@ class HomeViewModel @Inject constructor(
 
     val TAG = "HOMEVIEWMODEL"
 
-//    init {
-//        getAniBlog()
-//    }
+
 
     private val _aniBlog:MutableStateFlow<HomeState> = MutableStateFlow(HomeState())
     val aniBlog:StateFlow<HomeState> = _aniBlog
