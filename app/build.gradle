@@ -96,5 +96,7 @@ dependencies {
     // room paging
     // optional - Paging 3 Integration
     implementation("androidx.room:room-paging:2.5.0-alpha01")
+    // paging 3
+    implementation("androidx.paging:paging-runtime:$paging_version")
 
 }
