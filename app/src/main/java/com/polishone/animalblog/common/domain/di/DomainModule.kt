@@ -5,9 +5,10 @@ import com.polishone.animalblog.common.domain.usecase.GetAniBlogsUseCase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
+import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
 
-@InstallIn
+@InstallIn(SingletonComponent::class)
 @Module
 object DomainModule {
 
