@@ -7,11 +7,13 @@ import androidx.paging.RemoteMediator
 import com.polishone.animalblog.common.data.cache.BlogDAO
 import com.polishone.animalblog.common.data.cache.BlogKey
 import com.polishone.animalblog.common.domain.model.entity.AniBlogEntity
+import com.polishone.animalblog.common.domain.repository.GetPagerBlogsRepo
 import javax.inject.Inject
 
 @OptIn(ExperimentalPagingApi::class)
 class BlogRemoteMediator @Inject constructor(
     private val initialPage: Int = 1,
+    private val getPagerBlogsRepo: GetPagerBlogsRepo,
     private val blogDAO: BlogDAO
 ): RemoteMediator<Int, AniBlogEntity>() {
     override suspend fun load(
