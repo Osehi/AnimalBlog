@@ -20,12 +20,12 @@ interface BlogDAO {
     suspend fun deleteAllItems()
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAllBlog(aniList: List<BlogKey>)
+    suspend fun insertAllBlogKeys(aniList: List<BlogKey>)
 
     @Query("DELETE FROM aniblog")
     suspend fun deleteAllBlogKey()
 
-    @Query("SELECT * FROM aniblog WHERE id=:id")
+    @Query("SELECT * FROM blogkey WHERE id=:id")
     suspend fun getAllKeys(id: String): BlogKey
 
 }

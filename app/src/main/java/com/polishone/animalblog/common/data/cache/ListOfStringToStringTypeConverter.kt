@@ -12,11 +12,6 @@ class ListOfStringToStringTypeConverter {
     }
 
     @TypeConverter
-    fun strToListString(str: List<String>): String{
-        return Gson().toJson(str)
-    }
-
-    @TypeConverter
     fun strToListString(str: String) : List<String> {
         return Gson().fromJson(str, object : TypeToken<List<String>>() {}.type)
     }
