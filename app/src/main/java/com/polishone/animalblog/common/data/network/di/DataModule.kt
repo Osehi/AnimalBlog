@@ -6,7 +6,9 @@ import com.polishone.animalblog.common.data.cache.BlogDAO
 import com.polishone.animalblog.common.data.cache.BlogDatabase
 import com.polishone.animalblog.common.data.network.api.ApiService
 import com.polishone.animalblog.common.data.repository.AniBlogRepositoryImpl
+import com.polishone.animalblog.common.data.repository.GetPagerBlogsRepoImpl
 import com.polishone.animalblog.common.domain.repository.AniBlogRepository
+import com.polishone.animalblog.common.domain.repository.GetPagerBlogsRepo
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -79,5 +81,10 @@ object DataModule {
     @Provides
     fun provideDAO(blogDatabase: BlogDatabase): BlogDAO {
         return blogDatabase.getBlogDAO()
+    }
+
+    @Provides
+    fun provideGetPagerRepo(apiService: ApiService): GetPagerBlogsRepo {
+        return GetPagerBlogsRepoImpl(apiService)
     }
 }
