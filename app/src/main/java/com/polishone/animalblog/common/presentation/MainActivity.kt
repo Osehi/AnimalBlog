@@ -34,15 +34,30 @@ class MainActivity : AppCompatActivity() {
         myRecyclerView = binding.mainActivityRecyclerview
         myRecyclerView.layoutManager = LinearLayoutManager(this)
 
+        /**
+         * call the pager
+         */
+        lifecycleScope.launchWhenStarted {
+//            val list = aniBlogViewModel.pager.collect()
+//            Log.d(TAG, "using paging library 3: ${list}")
+            aniBlogViewModel.pager.collect {
+                Log.d(TAG, "using pager, here is the result: ${it}")
+            }
+        }
+
 
         /**
          * the viewModel is called
          */
+        /*
         aniBlogViewModel.getAniBlog()
+
+         */
 
         /**
          * observe the view modele
          */
+        /*
         lifecycleScope.launchWhenStarted {
             aniBlogViewModel.aniBlog.collect{
                 Log.d(TAG, "the result: ${it.data}")
@@ -53,5 +68,7 @@ class MainActivity : AppCompatActivity() {
                 aniBlogAdapter.notifyDataSetChanged()
             }
         }
+
+         */
     }
 }

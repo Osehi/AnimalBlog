@@ -4,6 +4,7 @@ import androidx.paging.ExperimentalPagingApi
 import androidx.paging.LoadType
 import androidx.paging.PagingState
 import androidx.paging.RemoteMediator
+import com.polishone.animalblog.common.constant.Resource
 import com.polishone.animalblog.common.data.cache.BlogDAO
 import com.polishone.animalblog.common.data.cache.BlogKey
 import com.polishone.animalblog.common.domain.model.entity.AniBlogEntity
@@ -35,6 +36,45 @@ class BlogRemoteMediator @Inject constructor(
                     remoteKeys?.next?.minus(1)?:initialPage
                 }
             }
+
+            val response = getPagerBlogsRepo.getPagerBlogs(page = page, limit = state.config.pageSize)
+            val endOfPagination = response?.datas?.size!! < state.config.pageSize
+
+            when(response){
+                is Resource.Success -> {
+                    val body = response.data
+
+                    if (loadType == LoadType.REFRESH){
+                        blogDAO.deleteAllBlogKey()
+                        blogDAO.deleteAllItems()
+                    }
+
+                    val prev = if(page == initialPage) initialPage else page-1
+                    val next = if(endOfPagination) null else page+1
+
+                    val list = body.map {
+                        BlogKey(id = it.id, prev, next)
+                    }
+                    list.let { blogDAO.insertAllBlogKeys(list) }
+                    body.let { blogDAO.insertAllBlogs(body) }
+                }
+                is Resource.Error -> {
+                    MediatorResult.Error(Exception())
+                }
+            }
+
+            if (response is Resource.Success){
+                if (endOfPagination){
+                    MediatorResult.Success(true)
+                }else {
+                    MediatorResult.Success(false)
+                }
+            } else {
+                MediatorResult.Success(true)
+            }
+
+
+
             return MediatorResult.Success(true)
         } catch (e:Exception){
             MediatorResult.Error(e)
